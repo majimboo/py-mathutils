@@ -7,6 +7,11 @@ cmake_minimum_required(VERSION 2.8)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin CACHE INTERNAL "" FORCE )
 set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib CACHE INTERNAL "" FORCE )
 
+# needed for python lib
+if(CMAKE_COMPILER_IS_GNUCC)
+	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+endif()
+
 # -----------------------------------------------------------------------------
 # configure python
 
@@ -68,6 +73,23 @@ endif()
 set(PYTHON_LIBRARIES "${PYTHON_LIBRARY}")
 set(PYTHON_INCLUDE_DIRS "${PYTHON_INCLUDE_DIR}")
 
+
+# -----------------------------------------------------------------------------
+# stubs
+
+set(SRC
+	src/stubs/stubs.c
+
+	src/stubs/BLI_memarena.h
+	src/stubs/MEM_guardedalloc.h
+	src/stubs/MEM_sys_types.h
+)
+
+include_directories(
+	src/stubs
+)
+
+add_library(stubs_lib ${SRC})
 
 # -----------------------------------------------------------------------------
 # blenlib
@@ -156,6 +178,7 @@ endif()
 
 # link
 target_link_libraries(mathutils_module
+	stubs_lib
 	blenlib_lib
 )
 
