@@ -9,7 +9,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib CACHE INTERNAL "" FORCE )
 
 # needed for python lib
 if(CMAKE_COMPILER_IS_GNUCC)
-	set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fPIC")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
 endif()
 
 # -----------------------------------------------------------------------------
