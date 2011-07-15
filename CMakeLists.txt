@@ -45,32 +45,7 @@ if(NOT DEFINED PYTHON_INCLUDE_DIR)
 	unset(_site_packages)
 endif()
 
-if(NOT DEFINED PYTHON_LIBRARY)
-	# library dir
-	execute_process(
-		COMMAND python3 -c "from distutils.sysconfig import PREFIX; import os; print(os.path.join(PREFIX, 'lib'))"
-		OUTPUT_VARIABLE _lib_dir
-		OUTPUT_STRIP_TRAILING_WHITESPACE
-	)
-	execute_process(
-		COMMAND python3 -c "from distutils.sysconfig import get_python_version, PREFIX; import sys; print('libpython%s%s' % (get_python_version(), sys.abiflags))"
-		OUTPUT_VARIABLE _lib_name
-		OUTPUT_STRIP_TRAILING_WHITESPACE
-	)
-
-	find_library(PYTHON_LIBRARY
-		NAMES
-			"${_lib_name}"
-		PATHS
-			"${_lib_dir}"
-	)
-
-	unset(_lib_dir)
-	unset(_lib_name)	
-endif()
-
 # set standard cmake/python names, uncached
-set(PYTHON_LIBRARIES "${PYTHON_LIBRARY}")
 set(PYTHON_INCLUDE_DIRS "${PYTHON_INCLUDE_DIR}")
 
 
@@ -178,8 +153,8 @@ endif()
 
 # link
 target_link_libraries(mathutils_module
-	stubs_lib
 	blenlib_lib
+	stubs_lib
 )
 
 # -----------------------------------------------------------------------------
