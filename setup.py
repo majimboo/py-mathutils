@@ -20,14 +20,17 @@ code in blender to allow non blender related projects to make use of it. A link
 to the blender repository is used so the source never gets out of sync. 
 """
 
+
 include_dirs = [
     "src/stubs",
     "src/blenlib",
     ]
 
 source_files = [
+    # * stubs *
     "src/stubs/stubs.c",
 
+    # * blenlib *
     "src/blenlib/intern/math_base.c",
     "src/blenlib/intern/math_base_inline.c",
     "src/blenlib/intern/math_color.c",
@@ -38,6 +41,7 @@ source_files = [
     "src/blenlib/intern/math_vector.c",
     "src/blenlib/intern/math_vector_inline.c",
 
+    # * mathutils *
     "src/mathutils/mathutils.c",
     "src/mathutils/mathutils_Color.c",
     "src/mathutils/mathutils_Euler.c",
@@ -48,6 +52,33 @@ source_files = [
     ]
 
 
+header_files = [
+    # * stubs *
+    "src/stubs/BLI_memarena.h",
+    "src/stubs/MEM_guardedalloc.h",
+    "src/stubs/MEM_sys_types.h",
+
+    # * blenlib *
+    "src/blenlib/BLI_math.h",
+    "src/blenlib/BLI_math_base.h",
+    "src/blenlib/BLI_math_color.h",
+    "src/blenlib/BLI_math_geom.h",
+    "src/blenlib/BLI_math_inline.h",
+    "src/blenlib/BLI_math_matrix.h",
+    "src/blenlib/BLI_math_rotation.h",
+    "src/blenlib/BLI_math_vector.h",
+    "src/blenlib/BLI_utildefines.h",
+
+    # * mathutils *
+    "src/mathutils/mathutils.h",
+    "src/mathutils/mathutils_Color.h",
+    "src/mathutils/mathutils_Euler.h",
+    "src/mathutils/mathutils_Matrix.h",
+    "src/mathutils/mathutils_Quaternion.h",
+    "src/mathutils/mathutils_Vector.h",
+    "src/mathutils/mathutils_geometry.h",
+]
+
 setup(name="mathutils",
       version="2.58a",
       maintainer="Campbell Barton",
@@ -56,7 +87,8 @@ setup(name="mathutils",
       ext_modules=[Extension("mathutils",
                              source_files,
                              include_dirs=include_dirs,
-                             define_macros=[("MATH_STANDALONE", None)]
+                             define_macros=[("MATH_STANDALONE", None)],
+                             depends=header_files,
                              )
                   ],
      )

@@ -1,0 +1,6 @@
+include *.txt
+include MANIFEST.in
+include setup.py
+
+recursive-include src *.h
+recursive-include docs *.html *.css *.gif *.jpg *.txt
