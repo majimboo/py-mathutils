@@ -1,4 +1,8 @@
 
+# avoid having empty buildtype
+set(CMAKE_BUILD_TYPE_INIT Release)
+
+
 cmake_policy(SET CMP0003 NEW)
 cmake_policy(SET CMP0005 NEW)
 
@@ -91,6 +95,7 @@ set(SRC
 	src/blenlib/BLI_math_rotation.h
 	src/blenlib/BLI_math_vector.h
 	src/blenlib/BLI_utildefines.h
+	src/blenlib/BLI_dynstr.h
 )
 
 include_directories(
