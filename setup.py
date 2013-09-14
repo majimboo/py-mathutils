@@ -80,7 +80,7 @@ header_files = [
 ]
 
 setup(name="mathutils",
-      version="2.58a",
+      version="2.68",
       maintainer="Campbell Barton",
       maintainer_email="ideasman42@gmail.com",
       url="http://code.google.com/p/blender-mathutils",
