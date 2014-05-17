@@ -1,3 +1,4 @@
+import distutils.ccompiler
 from distutils.core import setup, Extension
 
 desc = """\
@@ -90,6 +91,14 @@ header_files = [
     "src/mathutils/mathutils_geometry.h",
 ]
 
+compiler_name = distutils.ccompiler.get_default_compiler()
+
+if compiler_name == "msvc":
+    options = ["/J"]
+elif compiler_name == "unix":
+    options = ["-funsigned-char"]
+
+
 setup(name="mathutils",
       version="2.70",
       maintainer="Campbell Barton",
@@ -100,7 +109,7 @@ setup(name="mathutils",
                              include_dirs=include_dirs,
                              define_macros=[("MATH_STANDALONE", None)],
                              depends=header_files,
-                             extra_compile_args=['-funsigned-char'],
+                             extra_compile_args=options,
                              )
                   ],
      )
