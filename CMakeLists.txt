@@ -16,6 +16,11 @@ if(CMAKE_COMPILER_IS_GNUCC)
 	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -funsigned-char")
 endif()
 
+if(MSVC)
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} /J")
+endif()
+
+
 # -----------------------------------------------------------------------------
 # configure python
 
