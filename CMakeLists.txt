@@ -26,7 +26,7 @@ if(NOT DEFINED PYTHON_ROOT_DIR)
 		OUTPUT_STRIP_TRAILING_WHITESPACE
 	)
 	set(PYTHON_ROOT_DIR "${_prefix}" CACHE PATH INTERNAL)
-	unset(_site_packages)
+	unset(_prefix)
 endif()
 
 if(NOT DEFINED PYTHON_SITE_PACKAGES)
@@ -41,12 +41,12 @@ endif()
 
 if(NOT DEFINED PYTHON_INCLUDE_DIR)
 	execute_process(
-		COMMAND python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc())"
+		COMMAND python3 -c "from distutils.sysconfig import get_python_inc; print(get_python_inc(plat_specific=1))"
 		OUTPUT_VARIABLE _inc_dir
 		OUTPUT_STRIP_TRAILING_WHITESPACE
 	)
 	set(PYTHON_INCLUDE_DIR "${_inc_dir}" CACHE PATH INTERNAL)
-	unset(_site_packages)
+	unset(_inc_dir)
 endif()
 
 # set standard cmake/python names, uncached
