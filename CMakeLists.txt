@@ -99,8 +99,6 @@ set(SRC
 	src/blenlib/BLI_math_matrix.h
 	src/blenlib/BLI_math_rotation.h
 	src/blenlib/BLI_math_vector.h
-	src/blenlib/BLI_memarena.h
-	src/blenlib/BLI_mempool.h
 	src/blenlib/BLI_strict_flags.h
 	src/blenlib/BLI_sys_types.h
 	src/blenlib/BLI_utildefines.h
