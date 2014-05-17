@@ -34,6 +34,7 @@ source_files = [
     "src/blenlib/intern/math_base.c",
     "src/blenlib/intern/math_base_inline.c",
     "src/blenlib/intern/math_color.c",
+    "src/blenlib/intern/math_color_inline.c",
     "src/blenlib/intern/math_geom.c",
     "src/blenlib/intern/math_geom_inline.c",
     "src/blenlib/intern/math_matrix.c",
