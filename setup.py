@@ -59,15 +59,25 @@ header_files = [
     "src/stubs/MEM_sys_types.h",
 
     # * blenlib *
+    "src/blenlib/BLI_compiler_attrs.h",
+    "src/blenlib/BLI_compiler_compat.h",
+    "src/blenlib/BLI_dynstr.h",
     "src/blenlib/BLI_math.h",
     "src/blenlib/BLI_math_base.h",
     "src/blenlib/BLI_math_color.h",
+    "src/blenlib/BLI_math_color_blend.h",
     "src/blenlib/BLI_math_geom.h",
     "src/blenlib/BLI_math_inline.h",
+    "src/blenlib/BLI_math_interp.h",
     "src/blenlib/BLI_math_matrix.h",
     "src/blenlib/BLI_math_rotation.h",
     "src/blenlib/BLI_math_vector.h",
+    "src/blenlib/BLI_memarena.h",
+    "src/blenlib/BLI_mempool.h",
+    "src/blenlib/BLI_strict_flags.h",
+    "src/blenlib/BLI_sys_types.h",
     "src/blenlib/BLI_utildefines.h",
+
 
     # * mathutils *
     "src/mathutils/mathutils.h",
@@ -80,7 +90,7 @@ header_files = [
 ]
 
 setup(name="mathutils",
-      version="2.68",
+      version="2.70",
       maintainer="Campbell Barton",
       maintainer_email="ideasman42@gmail.com",
       url="http://code.google.com/p/blender-mathutils",
@@ -89,6 +99,7 @@ setup(name="mathutils",
                              include_dirs=include_dirs,
                              define_macros=[("MATH_STANDALONE", None)],
                              depends=header_files,
+                             extra_compile_args=['-funsigned-char'],
                              )
                   ],
      )

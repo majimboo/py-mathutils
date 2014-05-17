@@ -13,7 +13,7 @@ set(LIBRARY_OUTPUT_PATH ${CMAKE_BINARY_DIR}/lib CACHE INTERNAL "" FORCE )
 
 # needed for python lib
 if(CMAKE_COMPILER_IS_GNUCC)
-	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC")
+	set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fPIC -funsigned-char")
 endif()
 
 # -----------------------------------------------------------------------------
@@ -86,16 +86,24 @@ set(SRC
 	src/blenlib/intern/math_vector.c
 	src/blenlib/intern/math_vector_inline.c
 
+	src/blenlib/BLI_compiler_attrs.h
+	src/blenlib/BLI_compiler_compat.h
+	src/blenlib/BLI_dynstr.h
 	src/blenlib/BLI_math.h
 	src/blenlib/BLI_math_base.h
 	src/blenlib/BLI_math_color.h
+	src/blenlib/BLI_math_color_blend.h
 	src/blenlib/BLI_math_geom.h
 	src/blenlib/BLI_math_inline.h
+	src/blenlib/BLI_math_interp.h
 	src/blenlib/BLI_math_matrix.h
 	src/blenlib/BLI_math_rotation.h
 	src/blenlib/BLI_math_vector.h
+	src/blenlib/BLI_memarena.h
+	src/blenlib/BLI_mempool.h
+	src/blenlib/BLI_strict_flags.h
+	src/blenlib/BLI_sys_types.h
 	src/blenlib/BLI_utildefines.h
-	src/blenlib/BLI_dynstr.h
 )
 
 include_directories(
@@ -131,6 +139,16 @@ set(SRC
 include_directories(
 	src/mathutils
 )
+
+# see stubs.c
+if(CMAKE_COMPILER_IS_GNUCC)
+	set_source_files_properties(${SRC}
+		PROPERTIES
+		COMPILE_FLAGS
+		  "-DMEM_mallocN=_poison -DMEM_callocN=_poison -DMEM_freeN=_poison -DBLI_memarena_alloc=_poison"
+	)
+endif()
+
 
 # -----------------------------------------------------------------------------
 # python module
