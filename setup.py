@@ -1,5 +1,16 @@
 import distutils.ccompiler
-from distutils.core import setup, Extension
+
+try:
+    from setuptools import setup, Extension
+except ImportError:
+    from distutils.core import setup, Extension
+
+import sys
+if sys.version_info < (3,):
+    print("Sorry, Python 2 are not supported")
+    sys.exit(0)
+
+
 
 desc = """\
 blender-mathutils module
@@ -106,6 +117,7 @@ setup(name="mathutils",
       url="http://code.google.com/p/blender-mathutils",
       description=("A general math utilities library providing Matrix,"
                    " Vector, Quaternion, Euler and Color classes, written in C for speed."),
+      license="GNU GPLv2+",
       ext_modules=[Extension("mathutils",
                              source_files,
                              include_dirs=include_dirs,
