@@ -100,10 +100,12 @@ elif compiler_name == "unix":
 
 
 setup(name="mathutils",
-      version="2.70",
+      version="2.73",
       maintainer="Campbell Barton",
       maintainer_email="ideasman42@gmail.com",
       url="http://code.google.com/p/blender-mathutils",
+      description=("A general math utilities library providing Matrix,"
+                   " Vector, Quaternion, Euler and Color classes, written in C for speed."),
       ext_modules=[Extension("mathutils",
                              source_files,
                              include_dirs=include_dirs,
