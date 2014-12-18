@@ -64,6 +64,7 @@ files_blenlib_dest = "src"
 files_blenlib = (
     "source/blender/blenlib/BLI_compiler_attrs.h",
     "source/blender/blenlib/BLI_compiler_compat.h",
+    "source/blender/blenlib/BLI_compiler_typecheck.h",
     "source/blender/blenlib/BLI_dynstr.h",
     "source/blender/blenlib/BLI_math.h",
     "source/blender/blenlib/BLI_math_base.h",
