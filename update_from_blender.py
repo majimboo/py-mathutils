@@ -33,8 +33,7 @@ def update_source(files, files_dest, files_level):
 
         os.makedirs(os.path.dirname(f_dst), exist_ok=True)
         shutil.copy2(f_src, f_dst)
-        # os.system("svn add " + f_dst)
-
+        os.system("git add " + f_dst)
 
 
 # strip "source/blender/python"
@@ -55,6 +54,8 @@ files_mathutils = (
     "source/blender/python/mathutils/mathutils_Vector.h",
     "source/blender/python/mathutils/mathutils_geometry.c",
     "source/blender/python/mathutils/mathutils_geometry.h",
+    "source/blender/python/mathutils/mathutils_interpolate.c",
+    "source/blender/python/mathutils/mathutils_interpolate.h",
     )
 
 
@@ -94,6 +95,15 @@ files_blenlib = (
     )
 
 
+# strip "source/blender/python"
+files_pygeneric_level = 3
+files_pygeneric_dest = "src"
+files_pygeneric = (
+    "source/blender/python/generic/python_utildefines.h",
+    )
+
+
 update_source(files_mathutils, files_mathutils_dest, files_mathutils_level)
 update_source(files_blenlib, files_blenlib_dest, files_blenlib_level)
+update_source(files_pygeneric, files_pygeneric_dest, files_pygeneric_level)
 

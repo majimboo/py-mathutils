@@ -62,6 +62,7 @@ source_files = [
     "src/mathutils/mathutils_Quaternion.c",
     "src/mathutils/mathutils_Vector.c",
     "src/mathutils/mathutils_geometry.c",
+    "src/mathutils/mathutils_interpolate.c",
     ]
 
 
@@ -100,6 +101,10 @@ header_files = [
     "src/mathutils/mathutils_Quaternion.h",
     "src/mathutils/mathutils_Vector.h",
     "src/mathutils/mathutils_geometry.h",
+    "src/mathutils/mathutils_interpolate.h",
+
+    # * pygeneric *
+    "src/generic/python_utildefines.h",
 ]
 
 compiler_name = distutils.ccompiler.get_default_compiler()
@@ -111,10 +116,10 @@ elif compiler_name == "unix":
 
 
 setup(name="mathutils",
-      version="2.73",
+      version="2.74",
       maintainer="Campbell Barton",
       maintainer_email="ideasman42@gmail.com",
-      url="http://code.google.com/p/blender-mathutils",
+      url="https://gitlab.com/ideasman42/blender-mathutils",
       description=("A general math utilities library providing Matrix,"
                    " Vector, Quaternion, Euler and Color classes, written in C for speed."),
       license="GNU GPLv2+",

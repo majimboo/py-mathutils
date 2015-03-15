@@ -129,6 +129,7 @@ set(SRC
 	src/mathutils/mathutils_Quaternion.c
 	src/mathutils/mathutils_Vector.c
 	src/mathutils/mathutils_geometry.c
+	src/mathutils/mathutils_interpolate.c
 
 	src/mathutils/mathutils.h
 	src/mathutils/mathutils_Color.h
@@ -137,6 +138,9 @@ set(SRC
 	src/mathutils/mathutils_Quaternion.h
 	src/mathutils/mathutils_Vector.h
 	src/mathutils/mathutils_geometry.h
+	src/mathutils/mathutils_interpolate.h
+
+	src/generic/python_utildefines.h
 )
 
 include_directories(
