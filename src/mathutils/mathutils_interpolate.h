@@ -15,38 +15,18 @@
  * along with this program; if not, write to the Free Software Foundation,
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
+ * Contributor(s): Lukas Toenne
+ *
  * ***** END GPL LICENSE BLOCK *****
  */
 
-#ifndef __BLI_COMPILER_COMPAT_H__
-#define __BLI_COMPILER_COMPAT_H__
+#ifndef __MATHUTILS_INTERPOLATE_H__
+#define __MATHUTILS_INTERPOLATE_H__
 
-/** \file BLI_compiler_compat.h
- *  \ingroup bli
- *
- * Use to help with cross platform portability.
+/** \file blender/python/mathutils/mathutils_interpolate.h
+ *  \ingroup pymathutils
  */
 
-#if defined(_MSC_VER)
-#  define __func__ __FUNCTION__
-#  define alloca _alloca
-#endif
+PyMODINIT_FUNC PyInit_mathutils_interpolate(void);
 
-/* alloca is defined here for MinGW32 */
-#ifdef __MINGW32__
-#  include <malloc.h>
-#endif
-
-#if defined(__cplusplus) && ((__cplusplus >= 201103L) || (defined(_MSC_VER) && _MSC_VER >= 1800))
-#  define HAS_CPP11_FEATURES
-#endif
-
-#if (defined(__GNUC__) || defined(__clang__)) && defined(HAS_CPP11_FEATURES)
-extern "C++" {
-	/* Some magic to be sure we don't have reference in the type. */
-	template<typename T> static inline T decltype_helper(T x) { return x; }
-#  define typeof(x) decltype(decltype_helper(x))
-}
-#endif
-
-#endif  /* __BLI_COMPILER_COMPAT_H__ */
+#endif /* __MATHUTILS_INTERPOLATE_H__ */
