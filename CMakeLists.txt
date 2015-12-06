@@ -2,6 +2,12 @@
 # avoid having empty buildtype
 set(CMAKE_BUILD_TYPE_INIT Release)
 
+set_property(DIRECTORY APPEND PROPERTY COMPILE_DEFINITIONS
+	$<$<CONFIG:Debug>:DEBUG;_DEBUG>
+	$<$<CONFIG:Release>:NDEBUG>
+	$<$<CONFIG:MinSizeRel>:NDEBUG>
+	$<$<CONFIG:RelWithDebInfo>:NDEBUG>
+)
 
 cmake_policy(SET CMP0003 NEW)
 cmake_policy(SET CMP0005 NEW)
@@ -83,6 +89,7 @@ add_definitions(-DMATH_STANDALONE)
 set(SRC
 	src/blenlib/intern/math_base.c
 	src/blenlib/intern/math_base_inline.c
+	src/blenlib/intern/math_bits_inline.c
 	src/blenlib/intern/math_color.c
 	src/blenlib/intern/math_geom.c
 	src/blenlib/intern/math_geom_inline.c
@@ -96,6 +103,7 @@ set(SRC
 	src/blenlib/BLI_dynstr.h
 	src/blenlib/BLI_math.h
 	src/blenlib/BLI_math_base.h
+	src/blenlib/BLI_math_bits.h
 	src/blenlib/BLI_math_color.h
 	src/blenlib/BLI_math_color_blend.h
 	src/blenlib/BLI_math_geom.h
@@ -103,6 +111,7 @@ set(SRC
 	src/blenlib/BLI_math_interp.h
 	src/blenlib/BLI_math_matrix.h
 	src/blenlib/BLI_math_rotation.h
+	src/blenlib/BLI_math_solvers.h
 	src/blenlib/BLI_math_vector.h
 	src/blenlib/BLI_strict_flags.h
 	src/blenlib/BLI_sys_types.h
@@ -140,6 +149,8 @@ set(SRC
 	src/mathutils/mathutils_geometry.h
 	src/mathutils/mathutils_interpolate.h
 
+	src/generic/py_capi_utils.c
+	src/generic/py_capi_utils.h
 	src/generic/python_utildefines.h
 )
 

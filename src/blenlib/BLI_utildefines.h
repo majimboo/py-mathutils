@@ -252,7 +252,7 @@ extern "C" {
 #define FTOCHAR(val) ((CHECK_TYPE_INLINE(val, float)), \
 		(char)(((val) <= 0.0f) ? 0 : (((val) > (1.0f - 0.5f / 255.0f)) ? 255 : ((255.0f * (val)) + 0.5f))))
 #define FTOUSHORT(val) ((CHECK_TYPE_INLINE(val, float)), \
-		((val >= 1.0f - 0.5f / 65535) ? 65535 : (val <= 0.0f) ? 0 : (unsigned short)(val * 65535.0f + 0.5f)))
+		(unsigned short)((val >= 1.0f - 0.5f / 65535) ? 65535 : (val <= 0.0f) ? 0 : (val * 65535.0f + 0.5f)))
 #define USHORTTOUCHAR(val) ((unsigned char)(((val) >= 65535 - 128) ? 255 : ((val) + 128) >> 8))
 #define F3TOCHAR3(v2, v1) {                                                   \
 		(v1)[0] = FTOCHAR((v2[0]));                                           \
@@ -406,7 +406,7 @@ extern "C" {
 	CHECK_TYPE_INLINE(a, float), CHECK_TYPE_INLINE(b, float), \
 	((fabsf((float)((a) - (b))) >= (float) FLT_EPSILON) ? false : true))
 
-#define IS_EQT(a, b, c) ((a > b) ? (((a - b) <= c) ? 1 : 0) : ((((b - a) <= c) ? 1 : 0)))
+#define IS_EQT(a, b, c) ((a > b) ? ((((a) - (b)) <= c) ? 1 : 0) : (((((b) - (a)) <= c) ? 1 : 0)))
 #define IN_RANGE(a, b, c) ((b < c) ? ((b < a && a < c) ? 1 : 0) : ((c < a && a < b) ? 1 : 0))
 #define IN_RANGE_INCL(a, b, c) ((b < c) ? ((b <= a && a <= c) ? 1 : 0) : ((c <= a && a <= b) ? 1 : 0))
 
@@ -421,7 +421,7 @@ extern "C" {
 
 /* array helpers */
 #define ARRAY_LAST_ITEM(arr_start, arr_dtype, tot) \
-	(arr_dtype *)((char *)arr_start + (sizeof(*((arr_dtype *)NULL)) * (size_t)(tot - 1)))
+	(arr_dtype *)((char *)(arr_start) + (sizeof(*((arr_dtype *)NULL)) * (size_t)(tot - 1)))
 
 #define ARRAY_HAS_ITEM(arr_item, arr_start, tot)  ( \
 	CHECK_TYPE_PAIR_INLINE(arr_start, arr_item), \
@@ -435,7 +435,7 @@ extern "C" {
 	} (void)0
 
 /* assuming a static array */
-#if defined(__GNUC__) && !defined(__cplusplus)
+#if defined(__GNUC__) && !defined(__cplusplus) && !defined(__clang__)
 #  define ARRAY_SIZE(arr) \
 	((sizeof(struct {int isnt_array : ((const void *)&(arr) == &(arr)[0]);}) * 0) + \
 	 (sizeof(arr) / sizeof(*(arr))))
@@ -483,18 +483,21 @@ extern "C" {
 
 #if defined(__GNUC__) || defined(__clang__)
 #define POINTER_OFFSET(v, ofs) \
-	((typeof(v))((char *)(v) + ofs))
+	((typeof(v))((char *)(v) + (ofs)))
 #else
 #define POINTER_OFFSET(v, ofs) \
-	((void *)((char *)(v) + ofs))
+	((void *)((char *)(v) + (ofs)))
 #endif
 
 /* Like offsetof(typeof(), member), for non-gcc compilers */
 #define OFFSETOF_STRUCT(_struct, _member) \
 	((((char *)&((_struct)->_member)) - ((char *)(_struct))) + sizeof((_struct)->_member))
 
-/* memcpy, skipping the first part of a struct,
- * ensures 'struct_dst' isn't const and that the offset can be computed at compile time */
+/**
+ * memcpy helper, skipping the first part of a struct,
+ * ensures 'struct_dst' isn't const and the offset can be computed at compile time.
+ * This isn't inclusive, the value of \a member isn't copied.
+ */
 #define MEMCPY_STRUCT_OFS(struct_dst, struct_src, member)  { \
 	CHECK_TYPE_NONCONST(struct_dst); \
 	((void)(struct_dst == struct_src), \
@@ -502,6 +505,24 @@ extern "C" {
 	        (char *)(struct_src)  + OFFSETOF_STRUCT(struct_dst, member), \
 	        sizeof(*(struct_dst)) - OFFSETOF_STRUCT(struct_dst, member))); \
 } (void)0
+
+#define MEMSET_STRUCT_OFS(struct_var, value, member)  { \
+	CHECK_TYPE_NONCONST(struct_var); \
+	memset((char *)(struct_var)  + OFFSETOF_STRUCT(struct_var, member), \
+	       value, \
+	       sizeof(*(struct_var)) - OFFSETOF_STRUCT(struct_var, member)); \
+} (void)0
+
+/* defined
+ * in memory_utils.c for now. I do not know where we should put it actually... */
+#ifndef __BLI_MEMORY_UTILS_H__
+extern bool BLI_memory_is_zero(const void *arr, const size_t arr_size);
+#endif
+
+#define MEMCMP_STRUCT_OFS_IS_ZERO(struct_var, member) \
+	(BLI_memory_is_zero( \
+	       (char *)(struct_var)  + OFFSETOF_STRUCT(struct_var, member), \
+	       sizeof(*(struct_var)) - OFFSETOF_STRUCT(struct_var, member)))
 
 /* Warning-free macros for storing ints in pointers. Use these _only_
  * for storing an int in a pointer, not a pointer in an int (64bit)! */
@@ -613,9 +634,9 @@ extern "C" {
 #else
 #  if (defined(__APPLE__) && defined(__ppc__))
 /* static inline __attribute__ here breaks osx ppc gcc42 build */
-#    define BLI_INLINE static __attribute__((always_inline))
+#    define BLI_INLINE static __attribute__((always_inline)) __attribute__((__unused__))
 #  else
-#    define BLI_INLINE static inline __attribute__((always_inline))
+#    define BLI_INLINE static inline __attribute__((always_inline)) __attribute__((__unused__))
 #  endif
 #endif
 

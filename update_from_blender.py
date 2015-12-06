@@ -69,6 +69,7 @@ files_blenlib = (
     "source/blender/blenlib/BLI_dynstr.h",
     "source/blender/blenlib/BLI_math.h",
     "source/blender/blenlib/BLI_math_base.h",
+    "source/blender/blenlib/BLI_math_bits.h",
     "source/blender/blenlib/BLI_math_color.h",
     "source/blender/blenlib/BLI_math_color_blend.h",
     "source/blender/blenlib/BLI_math_geom.h",
@@ -76,11 +77,14 @@ files_blenlib = (
     "source/blender/blenlib/BLI_math_interp.h",
     "source/blender/blenlib/BLI_math_matrix.h",
     "source/blender/blenlib/BLI_math_rotation.h",
+    "source/blender/blenlib/BLI_math_solvers.h",
+    "source/blender/blenlib/BLI_math_statistics.h",
     "source/blender/blenlib/BLI_math_vector.h",
     "source/blender/blenlib/BLI_strict_flags.h",
     "source/blender/blenlib/BLI_sys_types.h",
     "source/blender/blenlib/BLI_utildefines.h",
     "source/blender/blenlib/intern/math_base.c",
+    "source/blender/blenlib/intern/math_bits_inline.c",
     "source/blender/blenlib/intern/math_base_inline.c",
     "source/blender/blenlib/intern/math_color.c",
     "source/blender/blenlib/intern/math_color_blend_inline.c",
@@ -99,6 +103,8 @@ files_blenlib = (
 files_pygeneric_level = 3
 files_pygeneric_dest = "src"
 files_pygeneric = (
+    "source/blender/python/generic/py_capi_utils.c",
+    "source/blender/python/generic/py_capi_utils.h",
     "source/blender/python/generic/python_utildefines.h",
     )
 

@@ -11,7 +11,6 @@ if sys.version_info < (3,):
     sys.exit(0)
 
 
-
 desc = """\
 blender-mathutils module
 ========================
@@ -29,7 +28,7 @@ animation or anywhere Euler and Quaternion values are used frequently.
 
 This project is mainly a build system around the actively maintained mathutils
 code in blender to allow non blender related projects to make use of it. A link
-to the blender repository is used so the source never gets out of sync. 
+to the blender repository is used so the source never gets out of sync.
 """
 
 
@@ -45,6 +44,7 @@ source_files = [
     # * blenlib *
     "src/blenlib/intern/math_base.c",
     "src/blenlib/intern/math_base_inline.c",
+    "src/blenlib/intern/math_bits_inline.c",
     "src/blenlib/intern/math_color.c",
     "src/blenlib/intern/math_color_inline.c",
     "src/blenlib/intern/math_geom.c",
@@ -63,6 +63,9 @@ source_files = [
     "src/mathutils/mathutils_Vector.c",
     "src/mathutils/mathutils_geometry.c",
     "src/mathutils/mathutils_interpolate.c",
+
+    # * pygeneric *
+    "src/generic/py_capi_utils.c",
     ]
 
 
@@ -78,6 +81,7 @@ header_files = [
     "src/blenlib/BLI_dynstr.h",
     "src/blenlib/BLI_math.h",
     "src/blenlib/BLI_math_base.h",
+    "src/blenlib/BLI_math_bits.h",
     "src/blenlib/BLI_math_color.h",
     "src/blenlib/BLI_math_color_blend.h",
     "src/blenlib/BLI_math_geom.h",
@@ -85,6 +89,7 @@ header_files = [
     "src/blenlib/BLI_math_interp.h",
     "src/blenlib/BLI_math_matrix.h",
     "src/blenlib/BLI_math_rotation.h",
+    "src/blenlib/BLI_math_solvers.h",
     "src/blenlib/BLI_math_vector.h",
     "src/blenlib/BLI_memarena.h",
     "src/blenlib/BLI_mempool.h",
@@ -104,6 +109,7 @@ header_files = [
     "src/mathutils/mathutils_interpolate.h",
 
     # * pygeneric *
+    "src/generic/py_capi_utils.h",
     "src/generic/python_utildefines.h",
 ]
 
@@ -116,7 +122,7 @@ elif compiler_name == "unix":
 
 
 setup(name="mathutils",
-      version="2.74",
+      version="2.76",
       maintainer="Campbell Barton",
       maintainer_email="ideasman42@gmail.com",
       url="https://gitlab.com/ideasman42/blender-mathutils",

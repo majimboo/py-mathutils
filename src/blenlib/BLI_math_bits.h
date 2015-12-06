@@ -16,37 +16,42 @@
  * Inc., 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301, USA.
  *
  * ***** END GPL LICENSE BLOCK *****
- */
+ * */
 
-#ifndef __BLI_COMPILER_COMPAT_H__
-#define __BLI_COMPILER_COMPAT_H__
+#ifndef __BLI_MATH_BITS_H__
+#define __BLI_MATH_BITS_H__
 
-/** \file BLI_compiler_compat.h
+/** \file BLI_math_bits.h
  *  \ingroup bli
- *
- * Use to help with cross platform portability.
  */
 
-#if defined(_MSC_VER)
-#  define __func__ __FUNCTION__
-#  define alloca _alloca
+#ifdef __cplusplus
+extern "C" {
 #endif
 
-/* alloca is defined here for MinGW32 */
-#ifdef __MINGW32__
-#  include <malloc.h>
+#include "BLI_math_inline.h"
+
+MINLINE unsigned int highest_order_bit_i(unsigned int n);
+MINLINE unsigned short highest_order_bit_s(unsigned short n);
+
+#ifdef __GNUC__
+#  define count_bits_i(i) __builtin_popcount(i)
+#else
+MINLINE int count_bits_i(unsigned int n);
 #endif
 
-#if defined(__cplusplus) && ((__cplusplus >= 201103L) || defined(_MSC_VER))
-#  define HAS_CPP11_FEATURES
+MINLINE int float_as_int(float f);
+MINLINE unsigned int float_as_uint(float f);
+MINLINE float int_as_float(int i);
+MINLINE float uint_as_float(unsigned int i);
+MINLINE float xor_fl(float x, int y);
+
+#if BLI_MATH_DO_INLINE
+#include "intern/math_bits_inline.c"
 #endif
 
-#if (defined(__GNUC__) || defined(__clang__)) && defined(HAS_CPP11_FEATURES)
-extern "C++" {
-	/* Some magic to be sure we don't have reference in the type. */
-	template<typename T> static inline T decltype_helper(T x) { return x; }
-#  define typeof(x) decltype(decltype_helper(x))
+#ifdef __cplusplus
 }
 #endif
 
-#endif  /* __BLI_COMPILER_COMPAT_H__ */
+#endif /* __BLI_MATH_BITS_H__ */

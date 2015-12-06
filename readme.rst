@@ -41,7 +41,7 @@ Important Details
   | C/C++ code can have mathutils objects synchronize with internal data using callbacks, or wrap the data directly.
 - Documentation here
 
-  | http://www.blender.org/documentation/blender_python_api_2_74_release/mathutils.html
+  | http://www.blender.org/documentation/blender_python_api_current/mathutils.html
 - GPLv2 or later since this is apart of the Blender project.
 
 
