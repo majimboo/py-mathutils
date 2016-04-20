@@ -118,11 +118,15 @@ compiler_name = distutils.ccompiler.get_default_compiler()
 if compiler_name == "msvc":
     options = ["/J"]
 elif compiler_name == "unix":
-    options = ["-funsigned-char"]
+    options = [
+        "-funsigned-char",
+        "-Wno-sign-compare",
+        "-Wno-strict-aliasing",
+        ]
 
 
 setup(name="mathutils",
-      version="2.76",
+      version="2.77",
       maintainer="Campbell Barton",
       maintainer_email="ideasman42@gmail.com",
       url="https://gitlab.com/ideasman42/blender-mathutils",

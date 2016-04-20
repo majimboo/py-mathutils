@@ -57,14 +57,14 @@ To build on unix like systems...
 
 To build you can choose between pythons distutils or CMake.
 
-*distutils*
+**distutils:**
 
 .. code-block:: sh
 
    python setup.py build
    sudo python setup.py install
 
-*CMake*
+**CMake:**
 
 .. code-block:: sh
 
