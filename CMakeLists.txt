@@ -120,9 +120,12 @@ set(SRC
 
 include_directories(
 	src/blenlib
-	${PYTHON_INCLUDE_DIRS}
 )
 
+include_directories(
+    SYSTEM
+	${PYTHON_INCLUDE_DIRS}
+)
 
 add_library(blenlib_lib ${SRC})
 
