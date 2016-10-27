@@ -67,6 +67,10 @@ set(PYTHON_INCLUDE_DIRS "${PYTHON_INCLUDE_DIR}")
 # -----------------------------------------------------------------------------
 # stubs
 
+# needed so we don't attempt to do clever back-trace
+# (not included in stand-alone version).
+add_definitions(-DWITH_ASSERT_ABORT)
+
 set(SRC
 	src/stubs/stubs.c
 

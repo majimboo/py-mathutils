@@ -82,6 +82,7 @@ files_blenlib = (
     "source/blender/blenlib/BLI_math_vector.h",
     "source/blender/blenlib/BLI_strict_flags.h",
     "source/blender/blenlib/BLI_sys_types.h",
+    "source/blender/blenlib/BLI_system.h",
     "source/blender/blenlib/BLI_utildefines.h",
     "source/blender/blenlib/intern/math_base.c",
     "source/blender/blenlib/intern/math_bits_inline.c",

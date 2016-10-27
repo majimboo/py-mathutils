@@ -95,6 +95,7 @@ header_files = [
     "src/blenlib/BLI_mempool.h",
     "src/blenlib/BLI_strict_flags.h",
     "src/blenlib/BLI_sys_types.h",
+    "src/blenlib/BLI_system.h",
     "src/blenlib/BLI_utildefines.h",
 
 
@@ -125,20 +126,29 @@ elif compiler_name == "unix":
         ]
 
 
-setup(name="mathutils",
-      version="2.77",
-      maintainer="Campbell Barton",
-      maintainer_email="ideasman42@gmail.com",
-      url="https://gitlab.com/ideasman42/blender-mathutils",
-      description=("A general math utilities library providing Matrix,"
-                   " Vector, Quaternion, Euler and Color classes, written in C for speed."),
-      license="GNU GPLv2+",
-      ext_modules=[Extension("mathutils",
-                             source_files,
-                             include_dirs=include_dirs,
-                             define_macros=[("MATH_STANDALONE", None)],
-                             depends=header_files,
-                             extra_compile_args=options,
-                             )
-                  ],
-     )
+setup(
+    name="mathutils",
+    version="2.78",
+    maintainer="Campbell Barton",
+    maintainer_email="ideasman42@gmail.com",
+    url="https://gitlab.com/ideasman42/blender-mathutils",
+    description=(
+        "A general math utilities library providing "
+        "Matrix, Vector, Quaternion, Euler and Color classes, "
+        "written in C for speed."
+    ),
+    license="GNU GPLv2+",
+    ext_modules=[
+        Extension(
+            "mathutils",
+            source_files,
+            include_dirs=include_dirs,
+            define_macros=[
+                ("MATH_STANDALONE", None),
+                ("WITH_ASSERT_ABORT", None),
+            ],
+            depends=header_files,
+            extra_compile_args=options,
+        )
+    ],
+)
