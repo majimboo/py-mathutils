@@ -1,7 +1,4 @@
-
-Blender-Mathutils
-*****************
-
+# Py-Mathutils
 
 Overview
 ========
@@ -19,7 +16,6 @@ Blender to allow non Blender related projects to make use of it.
 
 A link to the Blender repository is used so the source never gets out of sync.
 
-
 ``mathutils`` at a glance
 =========================
 
@@ -29,46 +25,47 @@ A link to the Blender repository is used so the source never gets out of sync.
 - Supports operations you'd expect, slicing, multiplication, comparison, division addition where applicable.
 - Supports swizzle style access on vectors: `v.xyz, v.zy, v.xxyz...` etc.
 
-
 Important Details
 =================
 
-- Python 3 only
-- Written in portable C
-- Extensible...
+    - Python 3 only
+    - Written in portable C
+    - Extensible...
+      | mathutils types can be sub-classed from python.
+      | C/C++ code can have mathutils objects synchronize with internal data using callbacks, or wrap the data directly.
+    - Documentation here
+      | http://www.blender.org/documentation/blender_python_api_current/mathutils.html
+    - GPLv2 or later since this is apart of the Blender project.
 
-  | mathutils types can be sub-classed from python.
-  | C/C++ code can have mathutils objects synchronize with internal data using callbacks, or wrap the data directly.
-- Documentation here
+Installing
+==========
 
-  | http://www.blender.org/documentation/blender_python_api_current/mathutils.html
-- GPLv2 or later since this is apart of the Blender project.
-
+    pip install https://github.com/majimboo/py-mathutils/archive/2.78a.zip
 
 Building
 ========
 
 To build on unix like systems...
 
-.. code-block:: sh
+code-block:: sh
 
-   git clone https://gitlab.com/ideasman42/blender-mathutils.git
-   cd blender-mathutils
+    git clone https://github.com/majimboo/py-mathutils.git
+    cd py-mathutils
 
 To build you can choose between pythons distutils or CMake.
 
 **distutils:**
 
-.. code-block:: sh
-
-   python setup.py build
-   sudo python setup.py install
+    python setup.py build
+    sudo python setup.py install
 
 **CMake:**
 
-.. code-block:: sh
+    cmake .
+    make
+    sudo make install
 
-   cmake .
-   make
-   sudo make install
+Original
+========
 
+https://pypi.python.org/pypi/mathutils
